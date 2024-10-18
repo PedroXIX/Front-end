@@ -1,4 +1,4 @@
-import TicketCard from "./(components)/TicketCard"
+import TicketCard from "./components/TicketCard"
 import LoginForm from "@/components/LoginForm";
 
 const Dashboard = () => {

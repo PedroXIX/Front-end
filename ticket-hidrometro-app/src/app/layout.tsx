@@ -1,10 +1,10 @@
-import Nav from "./(components)/Nav";
+import Nav from "./components/Nav";
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
 
-import {config} from "@fortawesome/fontawesome-svg-core"
-import "@fortawesome/fontawesome-svg-core/styles.css"
+import { config } from "@fortawesome/fontawesome-svg-core";
+import "@fortawesome/fontawesome-svg-core/styles.css";
 
 config.autoAddCss = false;
 const geistSans = localFont({
@@ -35,7 +35,9 @@ export default function RootLayout({
       >
         <div className="flex flex-col h-screen max-h-screen">
           <Nav />
-          <div className="flex-grow overflow-y-auto bg-page text-default-text">{children}</div>
+          <div className="flex-grow overflow-y-auto bg-page text-default-text">
+            {children}
+          </div>
         </div>
       </body>
     </html>
