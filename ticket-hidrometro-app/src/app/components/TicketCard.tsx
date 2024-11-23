@@ -1,9 +1,10 @@
+import { Ticket } from "../service/TicketService"
 import DeleteBlock from "./DeleteBlock"
 import PriorityDisplay from "./PriorityDisplay"
 import ProgressDisplay from "./ProgressDisplay"
 import StatusDisplay from "./StatusDisplay"
 
-const TicketCard = () => {
+const TicketCard: React.FC<Pick<Ticket, "id" | "descricao">> = ({ id, descricao }) => {
   return (
     <div className="flex flex-col bg-card hover:bg-card-hover rounded-md shadow-lg p-3 m-2">
         <div className="flex mb-3">
@@ -12,10 +13,10 @@ const TicketCard = () => {
                 <DeleteBlock />
             </div>
         </div>
-        <h4>Titulo do Ticket</h4>
+        <h4>{id}</h4>
         <hr className="h-px border-0 bg-page mb-2"/>
         <p className="whitespace-pre-wrap">
-            Essa é uma descrição de um ticket! Por favor, crie um ticket
+            {descricao}
         </p>
         <div className="flex-grow"></div>
         <div className="flex mt-2">
