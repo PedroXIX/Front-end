@@ -9,8 +9,15 @@ export const axiosInstance = axios.create({
 
 
 export interface Ticket {
-  id: string;
+  id: number;
+  titulo: string;
+  status: string;
+  categoria: string;
+  prioridade: number;
   descricao: string;
+  clienteId: number;
+  funcionarioId: number;
+  dataCriacao: string;
 }
 
 export class TicketService {
@@ -18,7 +25,8 @@ export class TicketService {
     return await axiosInstance.get('/tickets');
   }
 
-  static async postTicket(data: {title: FormDataEntryValue | null, description: FormDataEntryValue | null, priority: FormDataEntryValue | null, progress: FormDataEntryValue | null, status: FormDataEntryValue | null, category: FormDataEntryValue | null}) {
+  static async postTicket(data: {titulo: FormDataEntryValue | null, descricao: FormDataEntryValue | null, 
+    prioridade: number, status: FormDataEntryValue | null, categoria: FormDataEntryValue | null}) {
     return await axiosInstance.post('/tickets', JSON.stringify(data));
   }
 }

@@ -34,7 +34,12 @@ const Page = () => {
           <TicketCard
             key={ticket.id}
             id={ticket.id} // Identificador único
-            descricao={ticket.descricao} // Propriedade personalizada // Outra propriedade
+            titulo={ticket.titulo}
+            status={ticket.status}
+            categoria={ticket.categoria}
+            prioridade={ticket.prioridade}
+            descricao={ticket.descricao} 
+            dataCriacao={ticket.dataCriacao}// Propriedade personalizada // Outra propriedade
           />
         ))}
       </div>

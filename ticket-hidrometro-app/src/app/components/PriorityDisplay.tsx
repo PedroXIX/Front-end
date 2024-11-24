@@ -1,16 +1,25 @@
-import { faFire } from "@fortawesome/free-solid-svg-icons"
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { faFire } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-const PriorityDisplay = () => {
-  return (
-    <div className="flex justify-start align-baseline">
-        <FontAwesomeIcon icon={faFire} className="text-red-400"/>
-        <FontAwesomeIcon icon={faFire} className="text-red-400"/>
-        <FontAwesomeIcon icon={faFire} className="text-red-400"/>
-        <FontAwesomeIcon icon={faFire} className="text-red-400"/>
-        <FontAwesomeIcon icon={faFire} className="text-red-400"/>
-    </div>
-  )
+interface PriorityDisplayProps {
+  prioridade: number; // Número de prioridade que você quer exibir
 }
 
-export default PriorityDisplay
+const PriorityDisplay: React.FC<PriorityDisplayProps> = ({ prioridade }) => {
+  const icons = [];
+
+  // Adiciona o número de ícones baseado na prioridade
+  for (let i = 0; i < prioridade; i++) {
+    icons.push(
+      <FontAwesomeIcon key={i} icon={faFire} className="text-red-400" />
+    );
+  }
+
+  return (
+    <div className="flex justify-start align-baseline">
+      {icons}
+    </div>
+  );
+};
+
+export default PriorityDisplay;
