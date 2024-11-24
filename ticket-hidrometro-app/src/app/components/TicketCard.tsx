@@ -7,7 +7,7 @@ import StatusDisplay from "./StatusDisplay";
 const convertToBrazilTime = (dateString: string) => {
   const date = new Date(dateString);
 
-      // Ajusta o horário para o fuso horário de São Paulo (UTC-3)
+  // Ajusta o horário para o fuso horário de São Paulo (UTC-3)
   const spTime = new Date(date.getTime() - 3 * 60 * 60 * 1000); // Subtrai 3 horas (fuso horário de São Paulo)
 
   return spTime.toLocaleString("pt-BR", {
@@ -47,7 +47,7 @@ const TicketCard: React.FC<
           <p className="text-xs my-1">{brasilTime}</p>
         </div>
         <div className="ml-auto flex items-end">
-          <StatusDisplay />
+          <StatusDisplay status={status} />
         </div>
       </div>
     </div>

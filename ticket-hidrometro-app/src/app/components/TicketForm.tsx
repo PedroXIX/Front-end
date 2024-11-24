@@ -9,7 +9,7 @@ const TicketForm = () => {
     titulo: "",
     descricao: "",
     prioridade: 1,
-    status: "não iniciado",
+    status: false,
     categoria: "Hardware Problem",
     clienteId: 1,
     funcionarioId: 1
@@ -24,7 +24,7 @@ const TicketForm = () => {
     const { name, value } = e.target;
     setFormData((prevState) => ({
       ...prevState,
-      [name]: value,
+      [name]: name === "status" ? value === "true" : value,
     }));
   };
 
@@ -39,7 +39,7 @@ const TicketForm = () => {
         titulo: "",
         descricao: "",
         prioridade: 1,
-        status: "não iniciado",
+        status: false,
         categoria: "Hardware Problem",
         clienteId:1,
         funcionarioId:1
@@ -75,7 +75,7 @@ const TicketForm = () => {
         />
 
         <label>Status</label>
-        <select name="status" value={formData.status} onChange={handleChange}>
+        <select name="status"  value={formData.status.toString()} onChange={handleChange}>
           <option value="false">Aberto</option>
           <option value="true">Solucionado</option>
         </select>

@@ -11,7 +11,7 @@ export const axiosInstance = axios.create({
 export interface Ticket {
   id: number;
   titulo: string;
-  status: string;
+  status: boolean;
   categoria: string;
   prioridade: number;
   descricao: string;
@@ -26,7 +26,7 @@ export class TicketService {
   }
 
   static async postTicket(data: {titulo: FormDataEntryValue | null, descricao: FormDataEntryValue | null, 
-    prioridade: number, status: FormDataEntryValue | null, categoria: FormDataEntryValue | null}) {
+    prioridade: number, status: boolean, categoria: FormDataEntryValue | null}) {
     return await axiosInstance.post('/tickets', JSON.stringify(data));
   }
 }
