@@ -1,34 +1,60 @@
-"use client"
+"use client";
 
-import { useRouter } from "next/navigation";
-import React, { useState } from 'react';
+import React, { useState } from "react";
+import axios from "axios";
+import { TicketService } from "../service/TicketService";
 
 const TicketForm = () => {
+  const [formData, setFormData] = useState({
+    titulo: "",
+    descricao: "",
+    prioridade: 1,
+    status: false,
+    categoria: "Hardware Problem",
+    clienteId: 1,
+    funcionarioId: 1
+  });
+  const [error, setError] = useState<string | null>(null);
 
-  const handleChange = (e: { target: { value: any; name: any; }; }) => {
-    const value = e.target.value
-    const name = e.target.name
-  
+  const handleChange = (
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
+    >
+  ) => {
+    const { name, value } = e.target;
     setFormData((prevState) => ({
-        ...prevState,
-        [name]: value,
+      ...prevState,
+      [name]: name === "status" ? value === "true" : value,
     }));
   };
 
-  const handleSubmit = () => {
-    console.log("enviado");
-  }
-  
-  const startingTicketData = {
-    title: "",
-    description: "",
-    priority: 1,
-    progress: 0,
-    status: "não iniciado",
-    category: "Hardware Problem"
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    try {
+      const response = await TicketService.postTicket(formData);
+      console.log("Ticket criado:", response.data);
+      alert("Ticket criado com sucesso!");
+      // Opcional: redirecionar ou resetar o formulário
+      setFormData({
+        titulo: "",
+        descricao: "",
+        prioridade: 1,
+        status: false,
+        categoria: "Hardware Problem",
+        clienteId:1,
+        funcionarioId:1
+      });
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        console.error("Erro ao criar ticket:", error.response?.data);
+        setError(error.response?.data?.message || "Erro desconhecido.");
+      } else {
+        console.error("Erro desconhecido:", error);
+        setError("Erro desconhecido ao criar ticket.");
+      }
+    }
   };
 
-  const [formData, setFormData] = useState(startingTicketData);
   return (
     <div className="flex justify-center">
       <form
@@ -37,30 +63,27 @@ const TicketForm = () => {
         onSubmit={handleSubmit}
       >
         <h3>Crie Seu Ticket</h3>
+        {error && <div className="text-red-500 mb-3">{error}</div>}
         <label>Título</label>
         <input
-          id="title"
-          name="title"
+          id="titulo"
+          name="titulo"
           type="text"
           onChange={handleChange}
-          required={true}
-          value={formData.title}
+          required
+          value={formData.titulo}
         />
 
-        <label>Descrição</label>
-        <textarea
-          id="description"
-          name="description"
-          onChange={handleChange}
-          required={true}
-          value={formData.description}
-          rows={5}
-        />
+        <label>Status</label>
+        <select name="status"  value={formData.status.toString()} onChange={handleChange}>
+          <option value="false">Aberto</option>
+          <option value="true">Solucionado</option>
+        </select>
 
         <label>Categoria</label>
         <select
-          name="category"
-          value={formData.category}
+          name="categoria"
+          value={formData.categoria}
           onChange={handleChange}
         >
           <option value="Hardware Problem">Problema de Hardware</option>
@@ -68,75 +91,91 @@ const TicketForm = () => {
           <option value="Hydrometer Problem">Hidrômetro</option>
         </select>
 
+        <label>Descrição</label>
+        <textarea
+          id="descricao"
+          name="descricao"
+          onChange={handleChange}
+          required
+          value={formData.descricao}
+          rows={5}
+        />
+
         <label>Prioridade</label>
         <div>
           <input
-            id="priority-1"
-            name="priority"
+            id="prioridade-1"
+            name="prioridade"
             type="radio"
             value={1}
             onChange={handleChange}
-            checked={formData.priority == 1}
+            checked={formData.prioridade == 1}
           />
           <label>1</label>
           <input
-            id="priority-2"
-            name="priority"
+            id="prioridade-2"
+            name="prioridade"
             type="radio"
             value={2}
             onChange={handleChange}
-            checked={formData.priority == 2}
+            checked={formData.prioridade == 2}
           />
           <label>2</label>
           <input
-            id="priority-3"
-            name="priority"
+            id="prioridade-3"
+            name="prioridade"
             type="radio"
             value={3}
             onChange={handleChange}
-            checked={formData.priority == 3}
+            checked={formData.prioridade == 3}
           />
           <label>3</label>
           <input
-            id="priority-4"
-            name="priority"
+            id="prioridade-4"
+            name="prioridade"
             type="radio"
             value={4}
             onChange={handleChange}
-            checked={formData.priority == 4}
+            checked={formData.prioridade == 4}
           />
           <label>4</label>
           <input
-            id="priority-5"
-            name="priority"
+            id="prioridade-5"
+            name="prioridade"
             type="radio"
             value={5}
             onChange={handleChange}
-            checked={formData.priority == 5}
+            checked={formData.prioridade == 5}
           />
           <label>5</label>
         </div>
-        <label>Progresso</label>
+
+        <label>Identificador cliente</label>
         <input
-          type="range"
-          id="progress"
-          name="progress"
-          min="0"
-          max="100"
-          value={formData.progress}
+          id="clientId"
+          name="clientId"
+          type="text"
           onChange={handleChange}
+          required
+          value={formData.clienteId}
         />
-        <label>Status</label>
-        <select name="status" value={formData.status} onChange={handleChange}>
-          <option value="não iniciado">Não Iniciado</option>
-          <option value="iniciado">Iniciado</option>
-          <option value="solucionado">Solucionado</option>
-        </select>
-        <input type="submit" className="btn" value="Criar Ticket"/>
+
+<label>Identificador funcionário</label>
+        <input
+          id="funcionarioId"
+          name="funcionarioId"
+          type="text"
+          onChange={handleChange}
+          required
+          value={formData.funcionarioId}
+        />
+
+        <button type="submit" className="btn">
+          Criar Ticket
+        </button>
       </form>
     </div>
   );
-}
+};
 
-export default TicketForm
-
+export default TicketForm;

@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export const axiosInstance = axios.create({
-  baseURL: "http://localhost:3000/",
+  baseURL: "https://back-end-9wcx.onrender.com/",
   headers: {
     "Content-Type": "application/json",
   },
@@ -9,12 +9,24 @@ export const axiosInstance = axios.create({
 
 
 export interface Ticket {
-  id: string;
+  id: number;
+  titulo: string;
+  status: boolean;
+  categoria: string;
+  prioridade: number;
   descricao: string;
+  clienteId: number;
+  funcionarioId: number;
+  dataCriacao: string;
 }
 
 export class TicketService {
   static async getTickets() {
     return await axiosInstance.get('/tickets');
+  }
+
+  static async postTicket(data: {titulo: FormDataEntryValue | null, descricao: FormDataEntryValue | null, 
+    prioridade: number, status: boolean, categoria: FormDataEntryValue | null}) {
+    return await axiosInstance.post('/tickets', JSON.stringify(data));
   }
 }
