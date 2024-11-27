@@ -28,7 +28,7 @@ const TicketCard: React.FC<
     | "descricao"
     | "dataCriacao"
   >
-> = ({ id, titulo, status, categoria, prioridade, descricao, dataCriacao }) => {
+> = ({titulo, status, prioridade, descricao, dataCriacao }) => {
   const brasilTime = convertToBrazilTime(dataCriacao);
   const [isModalOpen, setIsModalOpen] = useState(false); // Estado para controlar o modal
   const [formData, setFormData] = useState({
