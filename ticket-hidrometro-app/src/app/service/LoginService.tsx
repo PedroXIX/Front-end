@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export const axiosInstance = axios.create({
-  baseURL: "http://localhost:3000/auth",
+  baseURL: "https://back-end-9wcx.onrender.com/auth",
   headers: {
     "Content-Type": "application/json",
   },
