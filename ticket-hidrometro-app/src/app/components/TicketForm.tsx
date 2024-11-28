@@ -88,7 +88,6 @@ const TicketForm = () => {
         >
           <option value="Hardware Problem">Problema de Hardware</option>
           <option value="Software Problem">Problema de Software</option>
-          <option value="Hydrometer Problem">Hidrômetro</option>
         </select>
 
         <label>Descrição</label>

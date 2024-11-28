@@ -43,13 +43,13 @@ export default function LoginForm() {
         name="email"
         type="email"
         placeholder="Email"
-        className="input input-primary w-full"
+        className="input input-primary w-full text-black"
       />
       <input
         name="senha"
         type="password"
         placeholder="Senha"
-        className="input input-primary w-full"
+        className="input input-primary w-full  text-black"
       />
       <button className="btn btn-primary w-full">Login</button>
       {error && <div className="text-red-500 mt-3">{error}</div>}
