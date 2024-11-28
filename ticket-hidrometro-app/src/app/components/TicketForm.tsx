@@ -41,8 +41,8 @@ const TicketForm = () => {
         prioridade: 1,
         status: false,
         categoria: "Hardware Problem",
-        clienteId:1,
-        funcionarioId:1
+        clienteId: 1,
+        funcionarioId: 1
       });
     } catch (error) {
       if (axios.isAxiosError(error)) {
@@ -151,8 +151,8 @@ const TicketForm = () => {
 
         <label>Identificador cliente</label>
         <input
-          id="clientId"
-          name="clientId"
+          id="clienteId"
+          name="clienteId"
           type="text"
           onChange={handleChange}
           required
