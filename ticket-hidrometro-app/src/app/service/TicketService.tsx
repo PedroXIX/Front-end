@@ -30,9 +30,16 @@ export class TicketService {
     return await axiosInstance.post('/tickets', JSON.stringify(data));
   }
 
-  static async updateTicket(data: {id:number; titulo: FormDataEntryValue | null, descricao: FormDataEntryValue | null, 
-     status: boolean}) {
-    return await axiosInstance.put(`/tickets/${data.id}`, JSON.stringify(data));
+  static async updateTicket({
+    id,
+    ...dataWithoutId
+  }: {
+    id: number;
+    titulo: FormDataEntryValue | null;
+    descricao: FormDataEntryValue | null;
+    status: boolean;
+  }) {
+    return await axiosInstance.patch(`/tickets/${id}`, JSON.stringify(dataWithoutId));
   }
 
   static async deleteTicket(id:number) {

@@ -72,7 +72,7 @@ const TicketCard: React.FC<
 
       const response = await TicketService.updateTicket(ticketToUpdate);
       console.log("Ticket atualizado com sucesso:", response);
-      alert("Ticket criado com sucesso!");
+      alert("Ticket atualizado com sucesso!");
       closeModal();
     } catch (error) {
       console.error("Erro ao atualizar o ticket:", error);
