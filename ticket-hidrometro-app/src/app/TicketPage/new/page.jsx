@@ -6,4 +6,4 @@ const TicketPage = () => {
   )
 }
 
-export default TicketPage
+export default TicketPage;

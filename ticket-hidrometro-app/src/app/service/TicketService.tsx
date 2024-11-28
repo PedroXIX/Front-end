@@ -7,7 +7,6 @@ export const axiosInstance = axios.create({
   },
 });
 
-
 export interface Ticket {
   id: number;
   titulo: string;
@@ -18,6 +17,7 @@ export interface Ticket {
   clienteId: number;
   funcionarioId: number;
   dataCriacao: string;
+  onDelete?: (id: number) => void;
 }
 
 export class TicketService {
@@ -28,5 +28,14 @@ export class TicketService {
   static async postTicket(data: {titulo: FormDataEntryValue | null, descricao: FormDataEntryValue | null, 
     prioridade: number, status: boolean, categoria: FormDataEntryValue | null}) {
     return await axiosInstance.post('/tickets', JSON.stringify(data));
+  }
+
+  static async updateTicket(data: {id:number; titulo: FormDataEntryValue | null, descricao: FormDataEntryValue | null, 
+     status: boolean}) {
+    return await axiosInstance.put(`/tickets/${data.id}`, JSON.stringify(data));
+  }
+
+  static async deleteTicket(id:number) {
+    return await axiosInstance.delete(`/tickets/${id}`);
   }
 }
